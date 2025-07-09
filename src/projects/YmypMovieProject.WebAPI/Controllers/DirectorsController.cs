@@ -52,24 +52,12 @@ namespace YmypMovieProject.WebAPI.Controllers
         [HttpGet("FullInfo")]
         public IActionResult GetFullInfo()
         {
-            //var directors = _directorService.GetAllFullInfo();
-            //var dto = directors.Select(d => new
-            //{
-            //    d.Id,
-            //    d.FirstName,
-            //    d.LastName,
-            //    d.ImageUrl,
-            //    d.BirthDate,
-            //    d.Description,
-            //    Fimleri = d.Movies.Select(m => new
-            //    {
-            //        m.Name,
-            //        Category = m.Category.Name,
-            //        m.Category.Description,
-            //    }).ToList()
-            //}).ToList();
-            //var dto = _mapper.Map<List<DirectorResponseDto>>(directors);
-            return Ok();
+            var result = _directorService.GetAllFullInfo();
+            if (!result.Success)
+            {
+                return BadRequest(result.Message);
+            }
+            return Ok(result.Data);
         }
         [HttpGet("{id}")]
         public IActionResult GetDirector(Guid id)

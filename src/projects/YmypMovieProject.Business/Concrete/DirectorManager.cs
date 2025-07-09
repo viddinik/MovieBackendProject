@@ -48,6 +48,25 @@ namespace YmypMovieProject.Business.Concrete
             throw new NotImplementedException();
         }
 
+        public IDataResult<List<DirectorDetailsDto>> GetAllFullInfo()
+        {
+            try
+            {
+                var directors = _directorRepository.GetQueryable().Include(d => d.Movies).ThenInclude(m => m.Actors).ToList();
+                if (directors is null)
+                {
+                    return new ErrorDataResult<List<DirectorDetailsDto>>(ResultMessages.ErrorListed); 
+                }
+                var diretorsDto = _mapper.Map<List<DirectorDetailsDto>>(directors);
+                return new SuccessDataResult<List<DirectorDetailsDto>>(diretorsDto,ResultMessages.SuccessListed);
+            }
+            catch (Exception e)
+            {
+                return new ErrorDataResult<List<DirectorDetailsDto>>($"error! {e.Message}");
+
+            }
+        }
+
         //public IDataResult<ICollection<DirectorResponseDto>> GetAllDeleted()
         //{
         //    try
@@ -93,7 +112,17 @@ namespace YmypMovieProject.Business.Concrete
 
         public IResult Insert(DirectorAddRequestDto dto)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var director = _mapper.Map<Director>(dto);
+                _directorRepository.Add(director);
+                return new SuccessResult(ResultMessages.SuccessCreated);
+            }
+            catch (Exception e)
+            {
+
+                return new ErrorDataResult<DirectorResponseDto>($"error!{e.Message}");
+            }
         }
 
         public Task InsertAsync(DirectorAddRequestDto dto)
@@ -103,7 +132,19 @@ namespace YmypMovieProject.Business.Concrete
 
         public IResult Modify(DirectorUpdateRequestDto dto)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var director = _mapper.Map<Director>(dto);
+                director.UpdateAt = DateTime.Now;
+                _directorRepository.Update(director);
+                return new SuccessResult(ResultMessages.SuccessUpdated);
+            }
+            catch (Exception e)
+            {
+
+                return new ErrorResult($"error!{e.Message}");
+
+            }
         }
 
         public Task ModifyAsync(DirectorUpdateRequestDto dto)
@@ -113,7 +154,24 @@ namespace YmypMovieProject.Business.Concrete
 
         public IResult Remove(Guid id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var director = _directorRepository.Get(d => d.Id == id);
+                if (director is null)
+                {
+                    return new ErrorResult(ResultMessages.ErrorGetById);
+                }
+                director.IsDeleted = true;
+                director.IsActive = false;
+                director.UpdateAt = DateTime.Now;
+                _directorRepository.Update(director);
+                return new SuccessResult(ResultMessages.SuccessDeleted);
+            }
+            catch (Exception e)
+            {
+
+                return new ErrorResult($"error!{e.Message}");
+            }
         }
 
         public Task RemoveAsync(Guid id)

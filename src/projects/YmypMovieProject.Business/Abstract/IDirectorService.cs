@@ -1,4 +1,5 @@
 ﻿using Core.Business;
+using Core.Business.Utilites.Results;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,6 @@ namespace YmypMovieProject.Business.Abstract
     public interface IDirectorService : IGenericService<Director,DirectorResponseDto,DirectorAddRequestDto,DirectorUpdateRequestDto>,
         IGenericServiceAsync<Director,DirectorResponseDto,DirectorAddRequestDto,DirectorUpdateRequestDto>
     {
-        
+        IDataResult<List<DirectorDetailsDto>> GetAllFullInfo();
     }
 }
