@@ -8,8 +8,8 @@ using YmypMovieProject.Entity.Dtos.Movies;
 
 namespace YmypMovieProject.Entity.Dtos.Directors
 {
-    public sealed class DirectorDetailsDto
-        (Guid id,
+    public sealed record DirectorDetailsDto
+        (Guid Id,
         string FirstName,
             string LastName,
             string ImageUrl,

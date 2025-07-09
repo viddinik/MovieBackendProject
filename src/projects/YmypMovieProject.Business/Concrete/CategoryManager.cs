@@ -92,21 +92,27 @@ namespace YmypMovieProject.Business.Concrete
         {
             try
             {
-                if (dto is null)
+                //if (dto is null)
+                //{
+                //    throw new ArgumentNullException(nameof(dto), "CategoryAddRequestDto cannot be null.");
+                //}
+                ValidationResult result = _categoryValidator.Validate(dto);
+                if (!result.IsValid)
                 {
-                    throw new ArgumentNullException(nameof(dto), "categoryaddrequestdto cannot be null");
+                    // Eğer doğrulama başarısızsa, ValidationException fırlatılır.
+                    result.Errors.ForEach(error => Console.WriteLine(error.ErrorMessage));
                 }
-                // gelen dto'yu mapper ile category nesnesine dönüştürür.
                 var category = _mapper.Map<Category>(dto);
-                // await _categoryRepository.Add(category);
-            }
-            catch (Exception)
-            {
+                //Category nesnesi veritabanına dataaccess metoduyla eklenir.
+                await _categoryRepository.AddAsync(category);
 
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
                 throw;
             }
         }
-
         public Task ModifyAsync(CategoryUpdateRequestDto dto)
         {
             throw new NotImplementedException();
