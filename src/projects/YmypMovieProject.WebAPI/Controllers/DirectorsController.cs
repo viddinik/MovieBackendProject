@@ -14,7 +14,6 @@ namespace YmypMovieProject.WebAPI.Controllers
         private readonly IDirectorService _directorService;
         private readonly IMapper _mapper;
         
-
         public DirectorsController(IDirectorService directorService, IMapper mapper)
         {
             _directorService = directorService;
@@ -91,6 +90,39 @@ namespace YmypMovieProject.WebAPI.Controllers
             //    }).ToList()
             //}).ToList();
             return Ok();
+        }
+
+        [HttpPost]
+        public IActionResult CreateDirector(DirectorAddRequestDto dto)
+        {
+            var result = _directorService.Insert(dto);
+            if (!result.Success)
+            {
+                return BadRequest(result.Message);
+            }
+             return Ok(result.Message);
+        }
+
+        [HttpPut]
+        public IActionResult UpdateDirector(DirectorUpdateRequestDto dto)
+        {
+            var result = _directorService.Modify(dto);
+            if (result.Success)
+            {
+                return Ok(result.Message);
+            }
+            return BadRequest(result.Message);
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteDirector(Guid id)
+        {
+            var result = _directorService.Remove(id);
+            if (!result.Success)
+            {
+                return BadRequest(result.Message);
+            }
+            return Ok(result.Message);
         }
     }
 }

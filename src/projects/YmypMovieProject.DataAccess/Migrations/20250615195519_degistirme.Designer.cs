@@ -13,7 +13,7 @@ namespace YmypMovieProject.DataAccess.Migrations
 {
     [DbContext(typeof(MovieDbContext))]
     [Migration("20250615195519_degistirme")]
-    partial class degistirme
+    partial class Degistirme
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

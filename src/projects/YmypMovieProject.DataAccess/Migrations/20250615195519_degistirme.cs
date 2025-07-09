@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace YmypMovieProject.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class degistirme : Migration
+    public partial class Degistirme : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

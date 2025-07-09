@@ -19,7 +19,8 @@ namespace YmypMovieProject.Business.Mappers.Profiles
             CreateMap<Category, CategoryResponseDto>();
             CreateMap<CategoryAddRequestDto, Category>();
             CreateMap<CategoryUpdateRequestDto, Category>();
-            
+            CreateMap<Category, CategoryDetailDto>();
+
             // mapping configurations for director entity and DTOs
 
             CreateMap<Director, DirectorResponseDto>();
