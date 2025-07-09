@@ -17,6 +17,6 @@ public interface IGenericService<TEntity, TResponseDto,in TCreateDto,in TUpdateD
     IResult Modify(TUpdateDto dto);
     IResult Remove(Guid id);
 
-    IDataResult<ICollection<TResponseDto>> GetAll(bool deleted);
+    IDataResult<ICollection<TResponseDto>> GetAll(bool deleted = false);
     IDataResult<TResponseDto> GetById(Guid id);
 }

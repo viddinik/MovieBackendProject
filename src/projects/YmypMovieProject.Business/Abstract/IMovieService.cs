@@ -1,4 +1,5 @@
 ﻿using Core.Business;
+using Core.Business.Utilites.Results;
 using Core.Entity;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,6 @@ public interface IMovieService : IGenericService<Movie, MovieResponseDto, MovieA
     //List<Movie> GetByGreaterThanIMDB(decimal imdb);
     //List<Movie> GetByCategoryId(Guid categoryId);
     //List<Movie> GetByDirectorId(Guid directorId);
-    List<MovieDetailDto> GetMoviesWithFullInfo();
+    IDataResult<List<MovieDetailDto>> GetMoviesWithFullInfo();
 
 }   
