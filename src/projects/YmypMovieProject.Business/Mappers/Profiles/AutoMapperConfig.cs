@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using YmypMovieProject.Entity.Dtos.Actors;
 using YmypMovieProject.Entity.Dtos.Categories;
 using YmypMovieProject.Entity.Dtos.Directors;
 using YmypMovieProject.Entity.Dtos.Movies;
@@ -20,6 +21,13 @@ namespace YmypMovieProject.Business.Mappers.Profiles
             CreateMap<CategoryAddRequestDto, Category>();
             CreateMap<CategoryUpdateRequestDto, Category>();
             CreateMap<Category, CategoryDetailDto>();
+
+            // mapping configurations for actor entity and DTOs
+             CreateMap<Actor, ActorResponseDto>();
+            CreateMap<ActorAddRequestDto, Actor>();
+            CreateMap<ActorUpdateRequestDto, Actor>();
+            CreateMap<Actor, ActorDetailDto>().ForMember(a => a.Description, option =>
+                option.MapFrom(a => $"{a.FirstName} {a.LastName}"));
 
             // mapping configurations for director entity and DTOs
 

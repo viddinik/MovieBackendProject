@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Core.Entity.Concrete;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
@@ -81,6 +82,9 @@ namespace YmypMovieProject.DataAccess.Contexts
         public DbSet<Category> Categories { get; set; }
         public DbSet<Director> Directors { get; set; }
         public DbSet<Movie> Movies { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<OperationClaim> Claims { get; set; }
+        public DbSet<UserOperationClaim> UserOperationClaims { get; set; }
     }
 }
 

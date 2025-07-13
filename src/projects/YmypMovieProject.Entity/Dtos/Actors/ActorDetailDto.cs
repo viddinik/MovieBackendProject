@@ -16,7 +16,9 @@ namespace YmypMovieProject.Entity.Dtos.Actors
         DateTime? BirthDate,
         string Description,
         bool IsActive,
-        MovieResponseDto Movies) : IResponseDto    
-    {
-    }
+        List<MovieResponseDto> Movies) : IResponseDto;
+
+
 }
+
+
