@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Core.Business.Utilites.Results;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ using YmypMovieProject.Entity.Entities;
 
 namespace YmypMovieProject.Business.Concrete
 {
-    public class ActorManager //: IActorService
+    public class ActorManager : IActorService
     {
         private readonly IActorRepository _actorRepository;
 
@@ -20,7 +21,7 @@ namespace YmypMovieProject.Business.Concrete
             _actorRepository = actorRepository;
         }
 
-        public ICollection<ActorResponseDto> GetAll()
+        public IDataResult<ICollection<ActorResponseDto>> GetAll(bool deleted = false)
         {
             throw new NotImplementedException();
         }
@@ -30,7 +31,7 @@ namespace YmypMovieProject.Business.Concrete
             throw new NotImplementedException();
         }
 
-        public ActorResponseDto GetById(Guid id)
+        public IDataResult<ActorResponseDto> GetById(Guid id)
         {
             throw new NotImplementedException();
         }
@@ -40,7 +41,7 @@ namespace YmypMovieProject.Business.Concrete
             throw new NotImplementedException();
         }
 
-        public void Insert(ActorAddRequestDto dto)
+        public IResult Insert(ActorAddRequestDto dto)
         {
             throw new NotImplementedException();
         }
@@ -50,7 +51,7 @@ namespace YmypMovieProject.Business.Concrete
             throw new NotImplementedException();
         }
 
-        public void Modify(ActorUpdateRequestDto dto)
+        public IResult Modify(ActorUpdateRequestDto dto)
         {
             throw new NotImplementedException();
         }
@@ -60,7 +61,7 @@ namespace YmypMovieProject.Business.Concrete
             throw new NotImplementedException();
         }
 
-        public void Remove(Guid id)
+        public IResult Remove(Guid id)
         {
             throw new NotImplementedException();
         }

@@ -73,7 +73,21 @@ public sealed class MovieManager : IMovieService
 
     public IDataResult<List<MovieDetailDto>> GetMoviesWithFullInfo()
     {
-        throw new NotImplementedException();
+        try
+        {
+            var movies = _movieRepository.GetQueryable().Include(m => m.Actors).Include(m => m.Director).ThenInclude(d => d.Movies).Include(m => m.Category).ToList();
+            if (movies is null)
+            {
+                return new ErrorDataResult<List<MovieDetailDto>>(ResultMessages.ErrorListed);
+            }
+            var moviesDto = _mapper.Map<List<MovieDetailDto>>(movies);
+            return new SuccessDataResult<List<MovieDetailDto>>(moviesDto, ResultMessages.SuccessListed);
+        }
+        catch (Exception e)
+        {
+
+            return new ErrorDataResult<List<MovieDetailDto>>($" error! {e.Message}");
+        }
     }
 
     public IResult Insert(MovieAddRequestDto dto)

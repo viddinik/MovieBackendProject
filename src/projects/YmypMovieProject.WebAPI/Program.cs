@@ -1,8 +1,11 @@
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Identity;
 using YmypMovieProject.Business.Abstract;
 using YmypMovieProject.Business.Concrete;
+using YmypMovieProject.Business.DependencyInjection.AutoFac;
 using YmypMovieProject.Business.Mappers.Categories;
 using YmypMovieProject.Business.Mappers.Profiles;
 using YmypMovieProject.Business.Validators;
@@ -26,14 +29,22 @@ builder.Services.AddCors(options =>
 
 
 
-builder.Services.AddControllers();
+builder.Services.AddControllers();  
 builder.Services.AddDbContext<MovieDbContext>();
-builder.Services.AddScoped<ICategoryService, CategoryManager>();
-builder.Services.AddScoped<ICategoryRepository, EfCategoryRepository>();
-builder.Services.AddScoped<IMovieService, MovieManager>();
-builder.Services.AddScoped<IMovieRepository, EfMovieRepository>();
-builder.Services.AddScoped<IDirectorService, DirectorManager>();
-builder.Services.AddScoped<IDirectorRepository, EfDirectorRepository>();
+
+//AutoFac configuration
+builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory()).ConfigureContainer<ContainerBuilder>(builder =>
+{
+    builder.RegisterModule(new AutoFacBusinessModule());
+});
+
+//builder.Services.AddScoped<ICategoryService, CategoryManager>();
+//builder.Services.AddScoped<ICategoryRepository, EfCategoryRepository>();
+//builder.Services.AddScoped<IMovieService, MovieManager>();
+//builder.Services.AddScoped<IMovieRepository, EfMovieRepository>();
+//builder.Services.AddScoped<IDirectorService, DirectorManager>();
+//builder.Services.AddScoped<IDirectorRepository, EfDirectorRepository>();
+
 builder.Services.AddScoped<ICategoryMapper, AutoCategoryMapper>();
 builder.Services.AddAutoMapper(typeof(AutoMapperConfig));
 builder.Services.AddValidatorsFromAssembly(typeof(CategoryValidator).Assembly);
