@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Core.Entity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,7 +8,7 @@ using YmypMovieProject.Entity.Dtos.Movies;
 
 namespace YmypMovieProject.Entity.Dtos.Categories
 {
-    public sealed record CategoryDetailDto
+    public sealed record CategoryDetailDto : IResponseDto
     {
         public Guid Id { get; init; }
         public string Name { get; init; } = string.Empty;
