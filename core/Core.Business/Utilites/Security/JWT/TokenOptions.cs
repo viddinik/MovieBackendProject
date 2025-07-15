@@ -8,9 +8,9 @@ namespace Core.Business.Utilites.Security.JWT
 {
     public class TokenOptions
     {
-        public string Audience { get; set; }
-        public string Issuer { get; set; }
-        public int AccessTokenExpiration { get; set; }
-        public string SecurityKey { get; set; }
+        public string Audience { get; set; } // token kullanıcı listesini tutar
+        public string Issuer { get; set; } // token izmalayan
+        public int AccessTokenExpiration { get; set; } // token geçerlilik süresi (dakika cinsinden)
+        public string SecurityKey { get; set; } // güvenlik anahtarı
     }
 }
