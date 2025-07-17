@@ -41,5 +41,8 @@ public static class ResultMessages
     public static string ErrorListed = "Listeleme işlemi başarısız";
     public static string ErrorGetById = "Getirme işlemi başarısız";
 
-
+    public static string SuccessUserRegister = "Kullanıcı başarıyla kaydedildi.";
+    public static string ErrorPassword = "şifre hatalı";
+    public static string SuccessLogin = "giriş başarılı.";
+    public static string UserExist = "bu mail adresi zaten kayıtlı";
 }

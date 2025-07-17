@@ -85,6 +85,7 @@ namespace YmypMovieProject.DataAccess.Contexts
         public DbSet<User> Users { get; set; }
         public DbSet<OperationClaim> Claims { get; set; }
         public DbSet<UserOperationClaim> UserOperationClaims { get; set; }
+        
     }
 }
 

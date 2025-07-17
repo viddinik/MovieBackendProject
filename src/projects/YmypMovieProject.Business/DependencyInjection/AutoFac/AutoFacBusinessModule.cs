@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Core.Business.Utilites.Security.JWT;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,10 @@ namespace YmypMovieProject.Business.DependencyInjection.AutoFac
             builder.RegisterType<EfCategoryRepository>().As<ICategoryRepository>(); 
             builder.RegisterType<ActorManager>().As<IActorService>();
             builder.RegisterType<EfActorRepository>().As<IActorRepository>();
+            builder.RegisterType<UserManager>().As<IUserService>();
+            builder.RegisterType<EfUserRepository>().As<IUserRepository>();
+            builder.RegisterType<AuthManager>().As<IAuthService>();
+            builder.RegisterType<JwtHelper>().As<ITokenHelper>();
         }
     }
 }
