@@ -44,7 +44,7 @@ namespace YmypMovieProject.WebAPI.Controllers
             {
                 return BadRequest(accessTokenResult.Message);
             }
-            return Ok(result.Data);
+            return Ok(accessTokenResult.Data);
         }
     }
 }

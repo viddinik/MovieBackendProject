@@ -73,6 +73,11 @@ namespace YmypMovieProject.Business.Concrete
             _userRepository.Add(user);
             return new SuccessResult(ResultMessages.SuccessUserRegister);
         }
+        public IResult Add(User user)
+        {
+            _userRepository.Add(user);
+            return new SuccessResult(ResultMessages.SuccessUserRegister);
+        }
 
         public IResult Modify(UserUpdateRequestDto dto)
         {

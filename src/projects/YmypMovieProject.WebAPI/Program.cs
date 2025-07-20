@@ -1,8 +1,12 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Core.Business.Utilites.Security.JWT;
+using Core.Business.Utilites.Security.JWT.Encryptions;
 using FluentValidation;
 using FluentValidation.AspNetCore;
-using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+
+using Microsoft.IdentityModel.Tokens;
 using YmypMovieProject.Business.Abstract;
 using YmypMovieProject.Business.Concrete;
 using YmypMovieProject.Business.DependencyInjection.AutoFac;
@@ -24,6 +28,22 @@ builder.Services.AddCors(options =>
                           .AllowAnyMethod()
                           .AllowAnyHeader());
 });
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+{
+    var tokenOptions = builder.Configuration.GetSection("TokenOptions").Get<TokenOptions>();
+    options.TokenValidationParameters = new TokenValidationParameters()
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+
+        ValidIssuer = tokenOptions.Issuer,
+        ValidAudience = tokenOptions.Audience,
+        IssuerSigningKey = SecurityKeyHelper.CreateSecurityKey(tokenOptions.SecurityKey)
+    };
+});
+
 
 // Add services to the container.
 
@@ -62,10 +82,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
-app.UseHttpsRedirection();
 app.UseCors("AllowAllOrigins");
-app.UseAuthorization();
+app.UseHttpsRedirection();
+
+app.UseAuthentication(); // giriþ anahtarý 
+
+app.UseAuthorization(); // yetki alaný 
 
 app.MapControllers();
 

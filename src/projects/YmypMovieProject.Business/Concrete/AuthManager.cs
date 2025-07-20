@@ -60,14 +60,15 @@ namespace YmypMovieProject.Business.Concrete
                 PasswordSalt = passwordSalt,
                 Status = ""
             };
-
+            _userService.Add(user);
 
             return new SuccessDataResult<User>(user, ResultMessages.SuccessUserRegister);
         }
 
         public IResult UserExists(string email)
         {
-            if(_userService.GetByMail(email) != null)
+            var result = _userService.GetByMail(email);
+            if(result.Data != null)
             {
                 return new ErrorResult(ResultMessages.UserExist);
 
